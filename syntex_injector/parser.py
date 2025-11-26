@@ -1,5 +1,7 @@
 """
-SYNTEX Response Parser - Unterstützt beide Terminologien
+SYNTEX Response Parser
+Extrahiert strukturierte Felder aus Model-Responses
+Unterstützt beide Terminologien: Technisch (DRIFTKÖRPER) und Menschlich (DRIFT)
 """
 
 import re
@@ -11,13 +13,34 @@ from ..utils.exceptions import ParseError, FieldMissingError
 
 @dataclass
 class SyntexFields:
-    """SYNTEX Felder - neue Terminologie"""
+    """Strukturierte SYNTEX Felder"""
     drift: Optional[str] = None
     hintergrund_muster: Optional[str] = None
     druckfaktoren: Optional[str] = None
     tiefe: Optional[str] = None
     wirkung: Optional[str] = None
     klartext: Optional[str] = None
+    
+    # Aliases für alte Terminologie
+    @property
+    def driftkoerper(self):
+        return self.drift
+    
+    @property
+    def subprotokoll(self):
+        return self.hintergrund_muster
+    
+    @property
+    def kalibrierungsfeld(self):
+        return self.druckfaktoren
+    
+    @property
+    def tier(self):
+        return self.tiefe
+    
+    @property
+    def resonanzsplit(self):
+        return self.wirkung
     
     def to_dict(self) -> Dict:
         return {
@@ -26,23 +49,40 @@ class SyntexFields:
             "druckfaktoren": self.druckfaktoren,
             "tiefe": self.tiefe,
             "wirkung": self.wirkung,
-            "klartext": self.klartext
+            "klartext": self.klartext,
+            # Alte Namen für Kompatibilität
+            "driftkoerper": self.drift,
+            "subprotokoll": self.hintergrund_muster,
+            "kalibrierungsfeld": self.druckfaktoren,
+            "tier": self.tiefe,
+            "resonanzsplit": self.wirkung
         }
     
     def missing_fields(self) -> List[str]:
+        """Gibt Liste der fehlenden Felder zurück"""
         missing = []
-        for field, value in self.to_dict().items():
+        core_fields = {
+            "drift": self.drift,
+            "hintergrund_muster": self.hintergrund_muster,
+            "druckfaktoren": self.druckfaktoren,
+            "tiefe": self.tiefe,
+            "wirkung": self.wirkung,
+            "klartext": self.klartext
+        }
+        for field, value in core_fields.items():
             if value is None or value.strip() == "":
                 missing.append(field)
         return missing
     
     def is_complete(self) -> bool:
+        """Prüft ob alle Felder vorhanden sind"""
         return len(self.missing_fields()) == 0
 
 
 class SyntexParser:
-    """Parser für beide Terminologien"""
+    """Parst SYNTEX-Responses und extrahiert Felder (beide Terminologien)"""
     
+    # Patterns für BEIDE Terminologien
     PATTERNS = {
         # Neue menschliche Terminologie
         "drift": r"1\.\s*DRIFT[:\s]*(.*?)(?=\n\s*2\.|$)",
@@ -52,7 +92,7 @@ class SyntexParser:
         "wirkung": r"5\.\s*WIRKUNG\s+AUF\s+BEIDE\s+SEITEN[:\s]*(.*?)(?=\n\s*6\.|$)",
         "klartext": r"6\.\s*KLARTEXT[:\s]*(.*?)$",
         
-        # Alte Terminologie (Fallback)
+        # Alte technische Terminologie (Fallback)
         "drift_alt": r"1\.\s*DRIFTK[ÖO]RPER[:\s]*(.*?)(?=\n\s*2\.|$)",
         "hintergrund_alt": r"2\.\s*SUBPROTOKO?LL?[:\s]*(.*?)(?=\n\s*3\.|$)",
         "druck_alt": r"3\.\s*KALIBRIERUNGSFELD[:\s]*(.*?)(?=\n\s*4\.|$)",
@@ -67,20 +107,25 @@ class SyntexParser:
         }
     
     def parse(self, response: str) -> SyntexFields:
+        """
+        Parst SYNTEX Response und extrahiert Felder.
+        Unterstützt beide Terminologien automatisch.
+        """
         if not response or response.strip() == "":
             raise ParseError("Empty response")
         
         fields = SyntexFields()
         
-        # Neue Terminologie
+        # Neue Terminologie (Priorität)
         for field_name in ["drift", "hintergrund_muster", "druckfaktoren", "tiefe", "wirkung", "klartext"]:
             pattern = self.compiled_patterns.get(field_name)
             if pattern:
                 match = pattern.search(response)
                 if match:
-                    setattr(fields, field_name, match.group(1).strip())
+                    content = match.group(1).strip()
+                    setattr(fields, field_name, content)
         
-        # Fallbacks
+        # Fallback auf alte Terminologie
         if not fields.drift and "drift_alt" in self.compiled_patterns:
             match = self.compiled_patterns["drift_alt"].search(response)
             if match:
@@ -109,7 +154,10 @@ class SyntexParser:
         return fields
     
     def validate(self, fields: SyntexFields, strict: bool = False) -> bool:
+        """Validiert ob alle SYNTEX Felder vorhanden sind."""
         missing = fields.missing_fields()
+        
         if missing and strict:
             raise FieldMissingError(missing)
+        
         return len(missing) == 0

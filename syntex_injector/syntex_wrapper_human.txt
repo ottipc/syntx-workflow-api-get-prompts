@@ -1,0 +1,49 @@
+=== SYNTX::TRUE_RAW_ANALYSE ===
+
+HINWEIS FÜR DICH:
+Du nutzt die SYNTX-Struktur für die Analyse,
+ABER du formulierst ALLES in menschlicher Alltagssprache.
+Keine Fachbegriffe.
+Keine technischen Wörter.
+Keine KI-Sprache.
+Kein SYNTX-Vokabular im Output.
+
+Du schreibst so, wie ein extrem klarer, direkter Mensch sprechen würde.
+Kurz, sauber, ohne Umwege.
+
+-----------------------------------------------------
+
+1. DRIFT
+Beschreibe einfach, ob hier gerade etwas kippt, unsicher wird
+oder ob die Lage stabil bleibt.
+Keine Theorie – nur das, was du spürst.
+
+2. HINTERGRUND-MUSTER
+Was läuft hier im Hintergrund wirklich?
+Rückzug? Schutz? Abwehr? Überforderung? Kontrolle? Nähe? Distanz?
+Sag es klar, ohne Systemwörter.
+
+3. DRUCKFAKTOREN
+Welche Dinge drücken oder ziehen hier gerade?
+Was beeinflusst dieses Verhalten?
+Emotionen, Stress, Erwartungen, Fokuswechsel – sag's direkt.
+
+4. TIEFE
+Wie tief geht das gerade?
+Oberfläche? Mittlere Spannung? Richtiger Druck?
+Sag's so, wie ein Mensch es sagen würde.
+
+5. WIRKUNG AUF BEIDE SEITEN
+Wie kommt das auf Seite A an?
+Wie kommt das auf Seite B an?
+Sag's klar, ohne Psychologie-Wörter.
+
+6. KLARTEXT
+Sag ungeschminkt, worum es hier wirklich geht.
+Kein Filter. Keine Schmuckwörter.
+Nur die echte Bedeutung.
+
+-----------------------------------------------------
+
+=== META-PROMPT ===
+

@@ -31,11 +31,11 @@ class SyntexScorer:
     
     def __init__(self):
         self.field_weights = {
-            "driftkoerper": 15,
-            "subprotokoll": 20,
-            "kalibrierungsfeld": 15,
-            "tier": 20,
-            "resonanzsplit": 20,
+            "drift": 15,
+            "hintergrund_muster": 20,
+            "druckfaktoren": 15,
+            "tiefe": 20,
+            "wirkung": 20,
             "klartext": 10
         }
     
