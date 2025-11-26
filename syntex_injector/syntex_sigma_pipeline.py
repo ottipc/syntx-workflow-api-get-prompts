@@ -22,8 +22,7 @@ def main():
     args = parser.parse_args()
     
     # Path-Objekt für Wrapper
-    wrapper_path = Path(__file__).parent / "syntex_wrapper_sigma.txt"
-    calibrator = EnhancedSyntexCalibrator(wrapper_file=wrapper_path)
+    calibrator = EnhancedSyntexCalibrator(wrapper_name="sigma")
     
     # Random Topics
     all_topics = [topic for category in TOPICS.values() for topic in category]
