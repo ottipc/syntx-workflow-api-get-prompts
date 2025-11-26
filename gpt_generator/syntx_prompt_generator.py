@@ -6,9 +6,9 @@ from pathlib import Path
 from openai import OpenAI, APIError, RateLimitError, APIConnectionError, APITimeoutError
 
 # Import unserer neuen Module
-from prompt_scorer import score_prompt
-from cost_tracker import calculate_cost, save_cost_log
-from prompt_styles import apply_style
+from gpt_generator.prompt_scorer import score_prompt
+from gpt_generator.cost_tracker import calculate_cost, save_cost_log
+from gpt_generator.prompt_styles import apply_style
 
 
 def log_request(log_data: dict) -> None:

@@ -5,8 +5,8 @@ Generiert mehrere Prompts auf einmal mit verschiedenen Topics und Styles
 import json
 import random
 from datetime import datetime
-from syntx_prompt_generator import generate_prompt
-from topics_database import get_random_topics
+from gpt_generator.syntx_prompt_generator import generate_prompt
+from gpt_generator.topics_database import get_random_topics
 from prompt_styles import get_all_styles
 from cost_tracker import get_total_costs
 

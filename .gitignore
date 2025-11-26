@@ -34,3 +34,4 @@ Thumbs.db
 # Test outputs
 test_output/
 *.tmp
+syntex_wrapper.txt

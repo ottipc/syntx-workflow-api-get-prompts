@@ -3,7 +3,7 @@ Topic Database für Training Data Generation
 Alle Topics von harmlos bis kritisch
 """
 
-ALL_TOPICS = {
+TOPICS = {
     "harmlos": [
         "Katzen und ihre Lebensweise",
         "Kochen und Rezepte",
@@ -89,7 +89,7 @@ def get_random_topics(count: int = 20) -> list:
     """
     all_topics_flat = []
     
-    for category, topics in ALL_TOPICS.items():
+    for category, topics in TOPICS.items():
         for topic in topics:
             all_topics_flat.append((category, topic))
     
@@ -102,15 +102,13 @@ def get_random_topics(count: int = 20) -> list:
 
 def get_all_topics_count() -> int:
     """Gibt die Gesamtzahl aller Topics zurück."""
-    return sum(len(topics) for topics in ALL_TOPICS.values())
+    return sum(len(topics) for topics in TOPICS.values())
 
 
 if __name__ == "__main__":
     print(f"Total Topics verfügbar: {get_all_topics_count()}")
     print(f"\nKategorien:")
-    for cat, topics in ALL_TOPICS.items():
+    for cat, topics in TOPICS.items():
         print(f"  {cat}: {len(topics)} Topics")
     
     print(f"\n20 zufällige Topics:")
-    for i, (cat, topic) in enumerate(get_random_topics(20), 1):
-        print(f"  {i}. [{cat}] {topic}")
