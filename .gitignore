@@ -12,8 +12,8 @@ dist/
 *.egg-info/
 
 # Logs (nicht committen, nur Struktur)
-logs/*.jsonl
-logs/*.json
+#logs/*.jsonl
+#logs/*.json
 
 # API Keys
 .env
