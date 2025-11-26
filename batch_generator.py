@@ -55,15 +55,17 @@ def generate_batch(count: int = 20, use_random_styles: bool = True) -> dict:
             topic,
             style=style,
             max_tokens=400,
-            max_refusal_retries=3
+            max_refusal_retries=3,
+            category=category
         )
         
         results.append({
             "category": category,
             "topic": topic,
             "style": style,
-            "result": result
-        })
+            "result": result,
+            "category": category
+            })
         
         # Statistiken updaten
         if category not in stats["by_category"]:

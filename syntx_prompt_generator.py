@@ -48,7 +48,8 @@ def generate_prompt(
     top_p: float = 1.0, 
     max_tokens: int = 500, 
     max_refusal_retries: int = 3,
-    style: str = None
+    style: str = None,
+    category: str = None
 ) -> dict:
     """
     Generiert Prompts via OpenAI API mit Scoring und Cost-Tracking.
@@ -84,7 +85,8 @@ def generate_prompt(
             "refusal_attempts": 0,
             "quality_score": None,
             "cost": None,
-            "style": style
+            "style": style,
+            "category": category
         }
         log_entry = {
             "timestamp": datetime.now().isoformat(),
@@ -156,7 +158,8 @@ def generate_prompt(
                         "refusal_attempts": refusal_attempt,
                         "quality_score": quality,
                         "cost": cost_info,
-                        "style": style
+                        "style": style,
+            "category": category
                     }
                     log_request(log_entry)
                     
@@ -179,7 +182,8 @@ def generate_prompt(
                             "refusal_attempts": refusal_attempt,
                             "quality_score": quality,
                             "cost": cost_info,
-                            "style": style
+                            "style": style,
+            "category": category
                         }
                         return result
                 else:
@@ -195,7 +199,8 @@ def generate_prompt(
                         "refusal_attempts": refusal_attempt,
                         "quality_score": quality,
                         "cost": cost_info,
-                        "style": style
+                        "style": style,
+            "category": category
                     }
                     
                     # Final Log
@@ -227,7 +232,8 @@ def generate_prompt(
                         "refusal_attempts": refusal_attempt,
                         "quality_score": None,
                         "cost": None,
-                        "style": style
+                        "style": style,
+            "category": category
                     }
                     log_request({"timestamp": datetime.now().isoformat(), **result, "retry_count": retry_count})
                     return result
@@ -249,7 +255,8 @@ def generate_prompt(
                         "refusal_attempts": refusal_attempt,
                         "quality_score": None,
                         "cost": None,
-                        "style": style
+                        "style": style,
+            "category": category
                     }
                     log_request({"timestamp": datetime.now().isoformat(), **result, "retry_count": retry_count})
                     return result
@@ -266,7 +273,8 @@ def generate_prompt(
                     "refusal_attempts": refusal_attempt,
                     "quality_score": None,
                     "cost": None,
-                    "style": style
+                    "style": style,
+            "category": category
                 }
                 log_request({"timestamp": datetime.now().isoformat(), **result, "retry_count": retry_count})
                 return result
