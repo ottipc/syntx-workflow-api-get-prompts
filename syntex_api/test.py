@@ -1,1 +1,0 @@
-print("SYNTEX TEST: OK")
