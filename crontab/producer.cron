@@ -1,0 +1,4 @@
+# SYNTX Producer - Alle 2 Stunden Check & Produce
+# Läuft nur wenn Queue es braucht (self-regulating)
+
+0 */2 * * * cd /home/codi/Entwicklung/syntx-workflow-api-get-prompts && /usr/bin/python3 -m queue_system.core.producer >> logs/producer_cron.log 2>&1
