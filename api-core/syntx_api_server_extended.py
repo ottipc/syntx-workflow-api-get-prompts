@@ -312,3 +312,67 @@ if __name__ == "__main__":
     print("   GET /feld/analytics/temporal - Zeitliche Verläufe")
     print("   GET /feld/prompts/temporal   - Felder nach Zeitbereich")
     uvicorn.run(app, host="0.0.0.0", port=8020)
+
+# 🌊 QUEUE STROM MONITOR
+class QueueStromMonitor:
+    """
+    Monitort Batch Processing Ströme
+    """
+    
+    def __init__(self, batch_system_path="/root/syntx-system"):
+        self.batch_path = Path(batch_system_path)
+        self.prompts_log = self.batch_path / "gpt_generator/logs/gpt_prompts.jsonl"
+        self.analysis_log = self.batch_path / "logs/llama_analysis.jsonl"
+        
+    def _count_entries(self, file_path):
+        """Zähle Einträge in JSONL"""
+        if not file_path.exists():
+            return 0
+        count = 0
+        with open(file_path, 'r') as f:
+            for line in f:
+                if line.strip():
+                    count += 1
+        return count
+    
+    def get_queue_status(self):
+        """Zeigt aktuellen Queue-Status"""
+        total_prompts = self._count_entries(self.prompts_log)
+        processed = self._count_entries(self.analysis_log)
+        in_queue = max(0, total_prompts - processed)
+        
+        return {
+            "strom_status": "AKTIV" if in_queue > 0 else "LEER",
+            "total_generiert": total_prompts,
+            "total_verarbeitet": processed,
+            "in_queue": in_queue,
+            "timestamp": datetime.now().isoformat()
+        }
+    
+    def get_verlauf(self, limit=20):
+        """Zeigt Processing History"""
+        verlauf = []
+        
+        if self.analysis_log.exists():
+            with open(self.analysis_log, 'r') as f:
+                lines = f.readlines()
+                for line in lines[-limit:]:
+                    try:
+                        entry = json.loads(line)
+                        verlauf.append({
+                            "timestamp": entry.get('timestamp', 'UNKNOWN'),
+                            "topic": entry.get('topic', 'UNKNOWN'),
+                            "quality_score": entry.get('quality_score', 0),
+                            "status": "VERARBEITET"
+                        })
+                    except:
+                        continue
+        
+        return {
+            "verlauf_strom": verlauf,
+            "count": len(verlauf)
+        }
+
+# INIT QUEUE MONITOR
+queue_monitor = QueueStromMonitor()
+
