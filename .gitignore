@@ -11,12 +11,21 @@ build/
 dist/
 *.egg-info/
 
-# Logs (nicht committen, nur Struktur)
+# Logs (JSONL files können große Daten enthalten)
 logs/*.jsonl
 logs/*.json
+*.log
 
-# API Keys
+# SYNTX Wrappers - CORE IP (NIEMALS COMMITTEN!)
+wrappers/*.txt
+syntex_wrapper*.txt
+/opt/syntx/wrappers/
+
+
+# API Keys & Secrets
 .env
+.env.local
+.env.production
 *.key
 .openai_key
 
@@ -34,3 +43,29 @@ Thumbs.db
 # Test outputs
 test_output/
 *.tmp
+
+# NextJS (falls vorhanden)
+.next/
+out/
+node_modules/
+
+# Exports & Dumps
+*-export.txt
+*-dump.txt
+backend-architektur.txt
+code-export.txt
+mein-nextjs-projekt.txt
+
+# Queue System (Runtime Data)
+queue/incoming/*
+queue/processing/*
+queue/processed/*
+queue/error/*
+queue/archive/*
+queue/.tmp/*
+!queue/**/.gitkeep
+crontab/crontab.backup.*
+
+# Old logs (moved to /opt/syntx-config/logs/)
+logs/
+syntex_injector/logs/

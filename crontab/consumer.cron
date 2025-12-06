@@ -1,0 +1,9 @@
+# SYNTX Consumer - Tägliche Batch-Verarbeitung
+# Human Wrapper: 3 Uhr morgens, 20 Jobs
+# Sigma Wrapper: Mehrmals täglich, 20 Jobs
+
+# Human Wrapper (1x täglich)
+0 3 * * * cd /home/codi/Entwicklung/syntx-workflow-api-get-prompts && /usr/bin/python3 -c "from queue_system.core.consumer import QueueConsumer; c = QueueConsumer('human'); c.process_batch(20)" >> logs/consumer_human_cron.log 2>&1
+
+# Sigma Wrapper (4x täglich)
+0 4,10,16,22 * * * cd /home/codi/Entwicklung/syntx-workflow-api-get-prompts && /usr/bin/python3 -c "from queue_system.core.consumer import QueueConsumer; c = QueueConsumer('sigma'); c.process_batch(20)" >> logs/consumer_sigma_cron.log 2>&1

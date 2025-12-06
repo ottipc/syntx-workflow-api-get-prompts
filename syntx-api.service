@@ -1,0 +1,18 @@
+[Unit]
+Description=SYNTX Felder API Service 🌊
+After=network.target
+Wants=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/syntx-workflow-api-get-prompts
+Environment=PATH=/opt/syntx-workflow-api-get-prompts/venv/bin
+ExecStart=/opt/syntx-workflow-api-get-prompts/venv/bin/python3 api-core/syntx_api_server.py
+Restart=always
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
