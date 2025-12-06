@@ -6,7 +6,11 @@ import sys
 from pathlib import Path
 from datetime import datetime
 from typing import Dict, Any, List
+import os
+from dotenv import load_dotenv
 import random
+# Load environment variables
+load_dotenv(override=True)
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
