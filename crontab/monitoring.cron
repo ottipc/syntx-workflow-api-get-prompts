@@ -1,7 +1,5 @@
 # SYNTX Monitoring - Stündliche Status-Logs
-
-# Queue Status loggen
-0 * * * * cd /home/codi/Entwicklung/syntx-workflow-api-get-prompts && ./scripts/queue_status.sh >> logs/queue_status_hourly.log 2>&1
+0 * * * * cd /opt/syntx-workflow-api-get-prompts && ./scripts/queue_status.sh >> /opt/syntx-config/logs/queue_status_hourly.log 2>&1
 
 # Cleanup: Täglich um 2 Uhr (vor Consumer-Run)
-0 2 * * * cd /home/codi/Entwicklung/syntx-workflow-api-get-prompts && ./scripts/queue_cleanup.sh >> logs/cleanup.log 2>&1
+0 2 * * * cd /opt/syntx-workflow-api-get-prompts && ./scripts/queue_cleanup.sh >> /opt/syntx-config/logs/cleanup.log 2>&1

@@ -1,12 +1,12 @@
 #!/bin/bash
-# SYNTX Crontab Installer
+# SYNTX Crontab Installer - Updated for Evolutionary System
 
-echo "🔧 SYNTX Crontab Installation"
-echo "=============================="
+echo "🌊 SYNTX EVOLUTIONARY CRONTAB INSTALLATION"
+echo "=========================================="
 echo ""
 
 # Get absolute path to repo
-REPO_PATH="$(cd "$(dirname "$0")/.." && pwd)"
+REPO_PATH="/opt/syntx-workflow-api-get-prompts"
 echo "📂 Repo path: $REPO_PATH"
 echo ""
 
@@ -39,13 +39,13 @@ TMP_CRON=$(mktemp)
 # Keep existing non-SYNTX entries
 crontab -l 2>/dev/null | grep -v "SYNTX" > "$TMP_CRON" || true
 
-# Add SYNTX entries (replace placeholder with actual path)
+# Add SYNTX entries
 echo "" >> "$TMP_CRON"
-sed "s|/home/codi/Entwicklung/syntx-workflow-api-get-prompts|$REPO_PATH|g" "$REPO_PATH/crontab/producer.cron" >> "$TMP_CRON"
+cat "$REPO_PATH/crontab/producer.cron" >> "$TMP_CRON"
 echo "" >> "$TMP_CRON"
-sed "s|/home/codi/Entwicklung/syntx-workflow-api-get-prompts|$REPO_PATH|g" "$REPO_PATH/crontab/consumer.cron" >> "$TMP_CRON"
+cat "$REPO_PATH/crontab/consumer.cron" >> "$TMP_CRON"
 echo "" >> "$TMP_CRON"
-sed "s|/home/codi/Entwicklung/syntx-workflow-api-get-prompts|$REPO_PATH|g" "$REPO_PATH/crontab/monitoring.cron" >> "$TMP_CRON"
+cat "$REPO_PATH/crontab/monitoring.cron" >> "$TMP_CRON"
 
 # Install new crontab
 crontab "$TMP_CRON"
@@ -56,6 +56,14 @@ echo "✅ SYNTX crontabs installed!"
 echo ""
 echo "📋 Installed jobs:"
 crontab -l | grep "SYNTX" -A 1
-
 echo ""
-echo "🎯 Installation complete!"
+echo "🎯 Schedule:"
+echo "  Producer: Every 2 hours (evolutionary generation)"
+echo "  Consumer SYNTEX_SYSTEM: Daily at 3 AM (20 jobs)"
+echo "  Consumer Sigma: 4x daily at 4, 10, 16, 22 (20 jobs each)"
+echo "  Monitoring: Hourly status logs"
+echo "  Cleanup: Daily at 2 AM"
+echo ""
+echo "📝 Logs in: /opt/syntx-config/logs/"
+echo ""
+echo "🌊 Installation complete! The Dauerfelder-Loop will run automatically."

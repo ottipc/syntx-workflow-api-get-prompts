@@ -1,9 +1,7 @@
-# SYNTX Consumer - Tägliche Batch-Verarbeitung
-# Human Wrapper: 3 Uhr morgens, 20 Jobs
-# Sigma Wrapper: Mehrmals täglich, 20 Jobs
+# SYNTX Consumer - Batch Processing
 
-# Human Wrapper (1x täglich)
-0 3 * * * cd /home/codi/Entwicklung/syntx-workflow-api-get-prompts && /usr/bin/python3 -c "from queue_system.core.consumer import QueueConsumer; c = QueueConsumer('human'); c.process_batch(20)" >> logs/consumer_human_cron.log 2>&1
+# SYNTEX_SYSTEM Wrapper: 1x täglich (3 Uhr morgens, 20 Jobs)
+0 3 * * * cd /opt/syntx-workflow-api-get-prompts && /usr/bin/python3 -c "import sys; sys.path.insert(0, 'queue_system'); from queue_system.core.consumer import QueueConsumer; c = QueueConsumer('syntex_system', 'cron_syntex'); stats = c.process_batch(20); print(f'Processed: {stats[\"processed\"]}, Failed: {stats[\"failed\"]}')" >> /opt/syntx-config/logs/consumer_syntex_cron.log 2>&1
 
-# Sigma Wrapper (4x täglich)
-0 4,10,16,22 * * * cd /home/codi/Entwicklung/syntx-workflow-api-get-prompts && /usr/bin/python3 -c "from queue_system.core.consumer import QueueConsumer; c = QueueConsumer('sigma'); c.process_batch(20)" >> logs/consumer_sigma_cron.log 2>&1
+# Sigma Wrapper: 4x täglich (4, 10, 16, 22 Uhr, 20 Jobs)
+0 4,10,16,22 * * * cd /opt/syntx-workflow-api-get-prompts && /usr/bin/python3 -c "import sys; sys.path.insert(0, 'queue_system'); from queue_system.core.consumer import QueueConsumer; c = QueueConsumer('sigma', 'cron_sigma'); stats = c.process_batch(20); print(f'Processed: {stats[\"processed\"]}, Failed: {stats[\"failed\"]}')" >> /opt/syntx-config/logs/consumer_sigma_cron.log 2>&1
