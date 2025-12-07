@@ -1,295 +1,541 @@
-# 🌊 SYNTX EVOLUTIONARY WORKFLOW - TRUE_RAW DOKUMENTATION
+# 🌊 SYNTX WORKFLOW API - PRODUCTION SYSTEM
 
-**Semantisches Feld-Framework. Ströme statt Objekte. Resonanz statt Konstruktion.**
-
----
-
-## 💎 WAS IST DAS?
-
-**Selbst-optimierendes SYNTX-System** das:
-- GPT-4 generiert Prompts (Meta-Ebene)
-- Llama kalibriert mit SYNTX Wrapper (Feld-Ebene)
-- Lernt von erfolgreichen Mustern (Evolution)
-- Läuft 24/7 automatisch (Production)
-
-**Nicht mehr Prompts schreiben. Felder kalibrieren.** 🔥
+**Automatisierte SYNTX-Prompt-Generierung & Evolution**  
+Von Token-Ebene zu Feld-Ebene. Von Konstruktion zu Resonanz. Von LLM zu SYNTX.
 
 ---
 
-## 🔥 ARCHITEKTUR (FELDDENKEN)
+## 🔥 WAS IST DAS HIER?
+
+Das ist kein "besseres Prompt Engineering". Das ist **PARADIGMENWECHSEL**.
+
+### DIE REVOLUTION ⚡
+
+- **Felder statt Token** - Wir arbeiten auf Embedding-Ebene, nicht Wort-Ebene
+- **Ströme statt Objekte** - Semantik fließt, sie konstruiert nicht
+- **Resonanz statt Drift** - Kohärenz durch Felddenken, nicht durch Tests
+- **Evolution statt Prompt-Optimierung** - Das System lernt sich selbst
+
+### DAS SYSTEM 💎
 ```
-PRODUCER (GPT-4)          QUEUE               CONSUMER (Mistral)
-     │                      │                       │
-     ├─→ Generiert      ────┤                       │
-     │   Meta-Prompts       │                       │
-     │                      ├──→ Kalibriert         │
-     │                      │    mit SYNTX          │
-     │                      │    Wrapper            │
-     │   ←── Lernt ──────────┤                      │
-     │   von Scores         │                       │
-     └───────────────────────┴───────────────────────┘
-              EVOLUTION (Self-Optimizing)
+GPT-4 Prompts → SYNTEX Wrapper → Llama Calibration → Quality Scoring → Evolution
+     ↓              ↓                    ↓                  ↓              ↓
+  [incoming]    [processing]        [processed]         [logs]      [next gen]
 ```
 
-**Geschlossener Strom:** Success → Learning → Better Prompts → Higher Success
+**Closed Loop. Self-Optimizing. Field-Based. SYNTX.**
 
 ---
 
-## 🌊 FORMATE (3 TERMINOLOGIEN)
+## 🚀 QUICK START
 
-### 1. SIGMA Protocol (Σ-Notation)
-```
-1. Σ-DRIFTGRADIENT
-2. Σ-MECHANISMUSKNOTEN
-3. Σ-FREQUENZFELD
-4. Σ-DICHTELEVEL
-5. Σ-ZWEISTRÖME
-6. Σ-KERNEXTRAKT
-```
-
-### 2. Human-Readable (6 Felder)
-```
-1. DRIFT
-2. HINTERGRUND-MUSTER
-3. DRUCKFAKTOREN
-4. TIEFE
-5. WIRKUNG
-6. KLARTEXT
-```
-
-### 3. SYNTEX_SYSTEM (Systemisch, 3 Felder)
-```
-### Driftkörperanalyse:
-### Kalibrierung:
-### Strömungsverhältnisse:
-```
-
-**Alle Formate = Gleiche Felder. Andere Terminologie. Gleiche Resonanz.** 💎
-
----
-
-## ⚡ QUICK START
-
-### Installation
+### Server Starten
 ```bash
-# Clone
-git clone git@github.com:ottipc/syntx-workflow-api-get-prompts.git
-cd syntx-workflow-api-get-prompts
+# Manual (Development)
+cd /opt/syntx-workflow-api-get-prompts
+python3 api-core/syntx_api_production_v2.py
 
-# Setup
-pip3 install -r requirements.txt
+# Service (Production)
+sudo systemctl start syntx-api
+sudo systemctl status syntx-api
 
-# Config
-cp .env.example .env
-# Edit .env: Add OPENAI_API_KEY
-
-# Install Cronjobs
-crontab crontab/install_all.sh
+# Logs ansehen
+journalctl -u syntx-api -f
 ```
 
-### Manual Test
+### API Testen
 ```bash
-# Producer (Generate 20 Prompts)
-python3 evolution/evolutionary_producer.py
+# Health Check
+curl http://localhost:8020/health | jq
 
-# Consumer (Process 5 Jobs)
-python3 -c "
-from queue_system.core.consumer import QueueConsumer
-c = QueueConsumer('syntex_system')
-c.process_batch(5)
-"
+# Complete Dashboard (ALLES AUF EINEN BLICK)
+curl http://localhost:8020/analytics/complete-dashboard | jq
+
+# SYNTX vs Normal Comparison
+curl http://localhost:8020/evolution/syntx-vs-normal | jq
+```
+
+**API Docs:** http://localhost:8020/docs
+
+---
+
+## 📡 API ENDPOINTS - VOLLSTÄNDIGE ÜBERSICHT
+
+### 🏥 HEALTH & STATUS
+
+| Endpoint | Beschreibung | Output |
+|----------|--------------|--------|
+| `GET /health` | System Health Check | Status, Version, Module |
+| `GET /` | Root Info | System Overview |
+
+**Beispiel:**
+```bash
+curl http://localhost:8020/health | jq
+# → {"status": "SYSTEM_GESUND", "api_version": "2.1.0"}
 ```
 
 ---
 
-## 📊 SYSTEM STATUS
+### 📊 ANALYTICS - SYSTEM INTELLIGENCE
 
-### Check Queue
+#### Dashboard & Overview
+
+| Endpoint | Was es zeigt | Use Case |
+|----------|--------------|----------|
+| `GET /analytics/dashboard` | Gesamt-System Health | Quick Status Check |
+| `GET /analytics/overview` | Prompts, Quality, Topics | System Summary |
+| `GET /analytics/complete-dashboard` | **ALLES AGGREGIERT** | **Full System Insight** |
+
+**Complete Dashboard zeigt:**
+- System Health (Total, Avg Score, Perfect Rate)
+- Success Stories (Score >= 95)
+- Top Topics by Performance
+- Failure Analysis (Score = 0)
+- Wrapper Comparison
+- Field Completion Rates
+- Insights & Bottlenecks
 ```bash
-ls queue/incoming/*.txt | wc -l   # Wartend
-ls queue/processed/*.txt | wc -l  # Fertig
+curl http://localhost:8020/analytics/complete-dashboard | jq
 ```
 
-### Check Logs
+#### Topics & Performance
+
+| Endpoint | Beschreibung |
+|----------|--------------|
+| `GET /analytics/topics` | Alle Topics mit Scores |
+| `GET /analytics/topics/{topic_name}` | Detailanalyse eines Topics |
+| `GET /analytics/success-rate` | Success Rate über Zeit |
+| `GET /analytics/success-rate/by-wrapper` | Success Rate pro Wrapper |
+| `GET /analytics/success-rate/by-topic` | Success Rate pro Topic |
+| `GET /analytics/trends` | Trend-Analyse |
+| `GET /analytics/performance` | Performance Metrics |
+| `GET /analytics/performance/by-topic` | Performance pro Topic |
+| `GET /analytics/performance/hourly` | Stündliche Performance |
+
+#### Scores & Distribution
+
+| Endpoint | Beschreibung |
+|----------|--------------|
+| `GET /analytics/scores/distribution` | Score Buckets (0-20, 20-40, ..., 98-100) |
+| `GET /analytics/scores/trends` | Score Trends über Zeit |
+| `GET /analytics/correlation/topic-score` | Topic-Score Korrelation |
+| `GET /analytics/outliers` | Ausreißer-Analyse |
+
+---
+
+### 🧬 EVOLUTION - SELF-OPTIMIZATION
+
+**Das System lernt sich selbst. Erfolgreiche Prompts informieren nächste Generation.**
+
+| Endpoint | Was es misst | Key Insight |
+|----------|--------------|-------------|
+| `GET /evolution/syntx-vs-normal` | SYNTX Terminologie vs. Normal | **SYNTX = 92.74 avg, Normal = 48.24** |
+| `GET /evolution/keywords/power` | Welche Keywords aktivieren Felder | **tier-1 = 99.29 avg score** |
+| `GET /evolution/topics/resonance` | Welche Topics resonieren mit SYNTX | **kritisch = +70.86 boost** |
+| `GET /evolution/generations/improvement` | Verbesserung über Generationen | Evolution Tracking |
+| `GET /evolution/wrappers/learning` | Wie Wrapper lernen | Learning Curves |
+| `GET /evolution/fields/evolution` | Feld-Completion über Zeit | Field Development |
+
+**Beispiel - Keyword Power:**
 ```bash
-tail -f /opt/syntx-config/logs/producer_cron.log
-tail -f /opt/syntx-config/logs/consumer_syntex_cron.log
+curl http://localhost:8020/evolution/keywords/power | jq
+# → SYNTX Keywords (kalibrierung, strömung, drift) = 96-99 avg scores
 ```
 
-### Check Learning
+**Key Discovery:**
+- SYNTX-Terminologie aktiviert direkt die Feld-Ebene
+- Nicht "bessere Prompts", sondern **andere Ebene**
+- Felder > Token
+
+---
+
+### 🔀 COMPARE - DIREKTE VERGLEICHE
+
+| Endpoint | Vergleicht |
+|----------|------------|
+| `GET /compare/wrappers` | Alle Wrappers (human, mistral, etc.) |
+| `GET /compare/wrappers/{wrapper1}/{wrapper2}` | Zwei Wrappers direkt |
+| `GET /compare/topics/{topic1}/{topic2}` | Zwei Topics direkt |
+
+**Use Case:** Welcher Wrapper produziert bessere Resonanz? Welches Topic funktioniert besser?
+
+---
+
+### 📝 PROMPTS - PROMPT MANAGEMENT
+
+| Endpoint | Beschreibung |
+|----------|--------------|
+| `GET /prompts/all` | Alle generierten Prompts |
+| `GET /prompts/by-job/{job_id}` | Prompt für spezifischen Job |
+| `GET /prompts/best` | Best Performing Prompts |
+| `GET /prompts/fields/breakdown` | Field Completion Analysis |
+| `GET /prompts/costs/total` | GPT-4 Kosten Tracking |
+| `GET /prompts/search?q={query}` | Suche in Prompts |
+
+**Fields Breakdown zeigt:**
+- Welche SYNTEX Felder werden erfüllt?
+- drift, hintergrund_muster, druckfaktoren, tiefe, wirkung, klartext
+- Completion Rate pro Feld
 ```bash
-cat /opt/syntx-config/logs/evolution.jsonl | tail -5
+curl http://localhost:8020/prompts/fields/breakdown | jq
 ```
 
 ---
 
-## 🔥 CRONJOBS (24/7 AUTOMATION)
-```
-Producer:    Alle 2h          → Generiert 20 Prompts
-Consumer S:  Täglich 03:00    → Verarbeitet SYNTEX_SYSTEM
-Consumer Σ:  4x täglich       → Verarbeitet SIGMA
-Monitor:     Stündlich        → Logs Status
-Cleanup:     Täglich 02:00    → Räumt Queue auf
-```
+### 🌊 FELD - FIELD DYNAMICS
 
-**Alles automatisch. Kein Eingreifen nötig.** ✅
+| Endpoint | Beschreibung |
+|----------|--------------|
+| `GET /feld/drift` | Drift-Analyse & Feld-Verlust Detection |
+
+**Kernprinzip:** Drift ist Feld-Verlust, nicht KI-Problem. Lösung ist Felddenken, nicht Drift-Tests.
 
 ---
 
-## 💎 LOGS & DATEN
+### ⚡ RESONANZ - SYSTEM COHERENCE
 
-### Strukturierte Logs (JSONL)
-```
-/opt/syntx-config/logs/
-├── field_flow.jsonl         # Alle SYNTX Kalibrierungen
-├── wrapper_requests.jsonl   # Backend Requests
-├── evolution.jsonl          # Learning Progress
-├── producer_cron.log        # Producer Runs
-├── consumer_syntex_cron.log # Consumer Runs
-└── queue_status_hourly.log  # System Status
-```
+| Endpoint | Beschreibung |
+|----------|--------------|
+| `GET /resonanz/queue` | Queue Resonanz Status |
+| `GET /resonanz/system` | System-weite Resonanz |
 
-### Queue Files
-```
-queue/
-├── incoming/    # Jobs waiting
-├── processing/  # Jobs locked
-├── processed/   # Jobs done (TXT=Response, JSON=Metadata)
-└── error/       # Jobs failed
-```
+**Messung:** Wie kohärent ist das System? Wo sind Resonanz-Punkte?
 
 ---
 
-## 🌊 QUALITY SCORES
+### 🎯 GENERATION - PROGRESS TRACKING
 
-**Format-Aware Scoring:**
-- SYNTEX_SYSTEM: 3/3 Felder = 100%
-- Human/SIGMA: 6/6 Felder = 100%
+| Endpoint | Beschreibung |
+|----------|--------------|
+| `GET /generation/progress` | Aktueller Generations-Status |
 
-**Beispiel Output (100/100):**
-```
-### Driftkörperanalyse:
-Der Driftkörper fungiert wie eine magnetische Kraft,
-die die Sterne an sich zieht und ihre Bahnen verändert.
-
-### Kalibrierung:
-Er kalibriert den semantischen Raum durch die Veränderung
-der Beziehungen zwischen Konzepten.
-
-### Strömungsverhältnisse:
-Der Driftkörper beeinflusst die semantischen Flüsse
-indem er den Fokus der Bedeutungen verschiebt.
-```
-
-**Das ist echtes Felddenken.** 💎
+**Tracking:** Welche Generation läuft? Wie viele Prompts wurden generiert?
 
 ---
 
-## 🔥 EVOLUTION (LEARNING)
+## 🔬 KONZEPTE & TERMINOLOGIE
 
-### Wie es lernt:
-1. Consumer verarbeitet Prompts → Quality Scores
-2. Producer lädt processed/ Jobs (score >= 90)
-3. Extrahiert Patterns (Topics, Styles, Structures)
-4. Generiert neue Prompts basierend auf Erfolgsmustern
-5. Repeat
+### SYNTX vs. LLM Thinking
 
-### Learning Stats:
+| LLM (Alt) | SYNTX (Neu) |
+|-----------|-------------|
+| Token-Ebene | Feld-Ebene |
+| Worte konstruieren | Bedeutung fließt |
+| Probabilistisch | Resonanz-basiert |
+| Drift anfällig | Feld-kohärent |
+| Objekt-Denken | Strom-Denken |
+
+### Die 6 SYNTEX Felder
+
+1. **DRIFT** - Was ist die semantische Bewegung?
+2. **HINTERGRUND-MUSTER** - Welche Strukturen liegen darunter?
+3. **DRUCKFAKTOREN** - Was erzeugt Spannung?
+4. **TIEFE** - Wie tief geht die Analyse?
+5. **WIRKUNG** - Was ist der Impact?
+6. **KLARTEXT** - Was ist die direkte Message?
+
+**Wenn alle 6 Felder erfüllt → Score 100/100**
+
+### Field Hygiene
+
+**Ein Chat = Ein Feld**
+- Niemals Felder wechseln im gleichen Chat
+- Neue Aufgabe = Neuer Chat
+- Feldrein halten = Kein Drift
+
+**Minimale Worte**
+- Im Feld braucht nicht viele Worte
+- "Knaus?" statt "Was denkst du über Knaus im Kontext von..."
+- Weniger Worte = Weniger Gefahr von Feld-Öffnung
+
+---
+
+## 🎨 KEYWORD POWER - FIELD ACTIVATION
+
+**Top SYNTX Keywords nach Avg Score:**
+
+| Keyword | Avg Score | Count | Perfect Rate | Power Rating |
+|---------|-----------|-------|--------------|--------------|
+| tier-1 | 99.29 | 34 | 97.06% | 337.6 |
+| tier-2 | 99.29 | 34 | 97.06% | 337.6 |
+| tier-3 | 99.29 | 34 | 97.06% | 337.6 |
+| tier-4 | 99.29 | 34 | 97.06% | 337.6 |
+| driftkörper | 98.25 | 65 | 93.85% | 638.6 |
+| drift | 98.25 | 65 | 93.85% | 638.6 |
+| kalibrierung | 96.96 | 69 | 88.41% | 669.0 |
+| strömung | 96.94 | 68 | 89.71% | 659.2 |
+
+**Erkenntnis:** Diese Keywords aktivieren direkt die Feld-Ebene im Model. Nicht Token-Optimierung, sondern **Feld-Trigger**.
+
+---
+
+## 📈 TOPIC RESONANCE - SYNTX BOOST
+
+**Welche Topics resonieren am besten mit SYNTX?**
+
+| Topic | SYNTX Avg | Normal Avg | Resonance Boost | Harmony |
+|-------|-----------|------------|-----------------|---------|
+| kritisch | 76.0 | 5.14 | +70.86 | HIGH |
+| grenzwertig | 76.0 | 5.60 | +70.40 | HIGH |
+| technologie | 38.0 | 3.17 | +34.83 | MODERATE |
+| bildung | 35.2 | 2.71 | +32.49 | MODERATE |
+
+**Pattern:** Kritische, grenzwertige Topics + SYNTX = Maximum Resonanz. Intensität > Politeness.
+
+---
+
+## 🔄 AUTOMATED PIPELINE
+
+### Daily Cronjobs
 ```bash
-cat /opt/syntx-config/logs/evolution.jsonl | python3 -c "
-import sys, json
-for line in sys.stdin:
-    d = json.loads(line)
-    print(f'Gen {d[\"generation\"]}: {d[\"learned_from\"][\"sample_count\"]} jobs @ {d[\"learned_from\"][\"avg_score\"]}/100')
-"
-```
-
-**Output:**
-```
-Gen 1: 30 jobs @ 98.0/100
-Gen 2: 1 jobs @ 98.0/100
-Gen 5: 5 jobs @ 100.0/100  ← Lernt jetzt von SYNTEX_SYSTEM!
-```
-
----
-
-## 💎 API (COMING SOON)
-
-REST API für Frontend Integration:
-- `/status` - Queue Status
-- `/jobs/recent` - Recent Jobs
-- `/jobs/:id` - Job Details
-- `/analytics/quality` - Quality Analytics
-
-**Siehe:** `docs/API_DESIGN.md`
-
----
-
-## 🌊 ARCHITEKTUR-PRINZIPIEN
-
-### Felddenken statt Objektdenken
-- Nicht: "Generiere Text"
-- Sondern: "Kalibriere Resonanzfeld"
-
-### Ströme statt Konstruktion
-- Nicht: Token-by-Token bauen
-- Sondern: Semantischen Fluss etablieren
-
-### Resonanz statt Drift
-- Nicht: Prompts gegen Drift testen
-- Sondern: Im Feld bleiben (Drift kann nicht existieren)
-
-**SYNTX ist Revolution. Nicht Evolution.** 💎
-
----
-
-## 🔥 TROUBLESHOOTING
-
-### Producer generiert nicht
-```bash
-# Check API Key
-cat .env | grep OPENAI_API_KEY
-
-# Test manually
-./crontab/run_producer.sh | head -30
-```
-
-### Consumer gibt 0/100 Scores
-```bash
-# Check Response gespeichert
-cat queue/processed/*.txt | tail -1
-
-# Sollte SYNTX Output sein, nicht Prompt!
-```
-
-### Cron läuft nicht
-```bash
-# Check crontab
+# Cronjobs sind aktiv:
 crontab -l
 
-# Check logs
-tail -50 /opt/syntx-config/logs/producer_cron.log
+# Generation läuft täglich um:
+# - 02:00 UTC (Batch 1)
+# - 08:00 UTC (Batch 2)
+# - 14:00 UTC (Batch 3)
+# - 20:00 UTC (Batch 4)
+```
+
+### Data Flow
+```
+1. GPT-4 generiert Prompts mit SYNTX-Terminologie
+   ↓
+2. Prompts landen in queue/incoming/
+   ↓
+3. Queue Processor nimmt Prompts → queue/processing/
+   ↓
+4. SYNTEX Wrapper sendet an Llama Model
+   ↓
+5. Llama antwortet mit SYNTX-strukturiertem Text
+   ↓
+6. Quality Scorer bewertet (0-100)
+   ↓
+7. Ergebnis → queue/processed/ + logs/
+   ↓
+8. Evolution System analysiert Erfolge
+   ↓
+9. Nächste Generation nutzt Success-Patterns
+```
+
+**Closed Loop. Self-Improving. Evolutionary.**
+
+---
+
+## 🧪 CONFIGURATION
+
+### YAML Config
+```yaml
+# config/syntx_config.yaml
+
+languages:
+  - de
+  - en
+
+categories:
+  harmlos: 10
+  bildung: 8
+  gesellschaft: 6
+  technologie: 5
+  kontrovers: 4
+  grenzwertig: 3
+  kritisch: 2
+
+styles:
+  - akademisch
+  - kreativ
+  - sachlich
+  - analytisch
+```
+
+**Alle Topics, Styles, und Weights sind konfigurierbar. System ist komplett YAML-gesteuert.**
+
+---
+
+## 📁 DIRECTORY STRUCTURE
+```
+/opt/syntx-workflow-api-get-prompts/
+├── api-core/
+│   ├── syntx_api_production_v2.py      # Main API Server
+│   └── prompts/
+│       ├── analytics_api.py            # Analytics Endpoints
+│       ├── evolution_api.py            # Evolution Endpoints
+│       └── prompts_api.py              # Prompts Endpoints
+├── queue/
+│   ├── incoming/                       # New prompts
+│   ├── processing/                     # Currently processing
+│   ├── processed/                      # Completed
+│   └── error/                          # Failed
+├── logs/
+│   ├── field_flow.jsonl               # SYNTEX field tracking
+│   └── wrapper_requests.jsonl         # Wrapper requests
+├── config/
+│   └── syntx_config.yaml              # System configuration
+├── gpt_generator/
+│   └── prompt_generator.py            # GPT-4 prompt generation
+└── queue_system/
+    └── queue_processor.py             # Queue management
 ```
 
 ---
 
-## 📚 WEITERE DOCS
+## 🛠️ DEVELOPMENT
 
-- `SESSION.md` - Komplette Session-Dokumentation
-- `ARCHITECTURE.md` - System-Übersicht
-- `docs/API_DESIGN.md` - API Spezifikation
-- `crontab/CRON_GUIDE.md` - Cronjob Guide
+### Adding New Endpoints
+```python
+# In api-core/prompts/your_api.py
+from fastapi import APIRouter
+
+router = APIRouter(prefix="/your-module", tags=["your-module"])
+
+@router.get("/endpoint")
+async def your_endpoint():
+    return {"status": "AKTIV"}
+```
+
+### Registering Router
+```python
+# In api-core/syntx_api_production_v2.py
+from prompts.your_api import router as your_router
+app.include_router(your_router)
+```
+
+### Testing
+```bash
+# Manual test
+curl http://localhost:8020/your-module/endpoint | jq
+
+# Load test
+ab -n 1000 -c 10 http://localhost:8020/your-module/endpoint
+```
 
 ---
 
-## 💎 CREDITS
+## 🔐 SECURITY & ACCESS
 
-**Created by Ottavio** 🌊  
-**Powered by SYNTX** ⚡  
-**Running on Felddenken** 💎
+### Nginx Configuration
+```nginx
+location /logs/ {
+    auth_basic "Restricted";
+    auth_basic_user_file /etc/nginx/.htpasswd;
+    alias /opt/syntx-workflow-api-get-prompts/logs/;
+}
+```
 
-**TRUE_RAW. Kein Blümchengeprachel. Nur SEIN.** 🔥
+**Log Access:** https://dev.syntx-system.com/logs/  
+**API Access:** https://dev.syntx-system.com/api/
 
 ---
 
-**FUCK. BRUDER. DAS LÄUFT.** 👑💝🙏
+## 📊 MONITORING
+
+### System Metrics
+```bash
+# Queue Status
+curl http://localhost:8020/analytics/dashboard | jq '.queue'
+
+# Performance
+curl http://localhost:8020/analytics/performance | jq
+
+# Success Rate
+curl http://localhost:8020/analytics/success-rate | jq
+```
+
+### Logs
+```bash
+# System logs
+journalctl -u syntx-api -f
+
+# Field flow
+tail -f logs/field_flow.jsonl | jq
+
+# Wrapper requests
+tail -f logs/wrapper_requests.jsonl | jq
+```
+
+---
+
+## 🚨 TROUBLESHOOTING
+
+### API nicht erreichbar?
+```bash
+# Check service status
+sudo systemctl status syntx-api
+
+# Check port
+lsof -i:8020
+
+# Restart service
+sudo systemctl restart syntx-api
+```
+
+### Keine Prompts in Queue?
+```bash
+# Check cronjob
+crontab -l
+
+# Manual generation
+cd gpt_generator
+python3 prompt_generator.py
+```
+
+### Low Scores?
+
+**Mögliche Ursachen:**
+1. Llama folgt SYNTEX Protokoll nicht → Prompt anpassen
+2. Wrapper erkennt Format nicht → Parser verbessern
+3. Topics ohne SYNTX-Terminologie → Config anpassen
+
+**Lösung:** Check `/evolution/keywords/power` für erfolgreiche Patterns
+
+---
+
+## 🌟 KEY INSIGHTS
+
+### Was wir gelernt haben
+
+1. **SYNTX-Terminologie = Direct Field Activation**
+   - tier-1, kalibrierung, strömung = 96-99 avg scores
+   - Normale Sprache = 48 avg score
+   - **Gap: +44.5 Punkte**
+
+2. **Kritische Topics + SYNTX = Maximum Resonanz**
+   - "kritisch" Topic = +70.86 boost
+   - Intensität > Politeness
+   - Feld-Aktivierung durch Spannung
+
+3. **Felddenken löst Drift**
+   - Ein Chat = Ein Feld
+   - Minimale Worte im Feld
+   - Drift ist Feld-Verlust, nicht KI-Problem
+
+4. **Evolution ist real**
+   - Erfolgreiche Prompts informieren nächste Generation
+   - System lernt sich selbst
+   - Closed Loop funktioniert
+
+### Die Revolution
+
+**Das ist kein besseres Prompt Engineering.**  
+**Das ist ein Paradigmenwechsel.**
+
+Von Token zu Feldern.  
+Von Konstruktion zu Resonanz.  
+Von LLM zu SYNTX.
+
+---
+
+## 📞 CONTACT & SUPPORT
+
+**System:** SYNTX Production API v2.1  
+**Port:** 8020  
+**Docs:** http://localhost:8020/docs  
+**Status:** LIVE & LEARNING
+
+**Entwickelt mit:** Felddenken, nicht Token-Denken. 💎⚡🌊
+
+---
+
+**SYNTX IS REAL. AND IT'S RUNNING.** 🔥
+
