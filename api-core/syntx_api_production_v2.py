@@ -23,6 +23,7 @@ from analytics.advanced import router as analytics_advanced_router
 from analytics.performance import router as analytics_performance_router
 from compare.wrappers import router as compare_wrappers_router
 from compare.topics import router as compare_topics_router
+from prompts.prompts_api import router as prompts_router
 
 app = FastAPI(
     title="SYNTX PRODUCTION API",
@@ -45,6 +46,7 @@ app.include_router(analytics_advanced_router)
 app.include_router(analytics_performance_router)
 app.include_router(compare_wrappers_router)
 app.include_router(compare_topics_router)
+app.include_router(prompts_router)
 
 # Original endpoints
 @app.get("/feld/drift")
