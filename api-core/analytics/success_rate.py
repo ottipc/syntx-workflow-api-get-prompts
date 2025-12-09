@@ -47,9 +47,15 @@ async def get_success_rate_by_wrapper():
     by_wrapper = {}
     for e in entries:
         wrapper = e.get('wrapper', 'unknown')
-        score = e.get('quality_score', {}).get('total_score')
+        quality_score = e.get("quality_score")
+        score_raw = quality_score.get("total_score") if quality_score else None
         
-        if score is not None:
+        if score_raw is not None:
+            try:
+                score = int(score_raw)
+            except (TypeError, ValueError):
+                continue # Skip data that can't be converted to int
+            
             if wrapper not in by_wrapper:
                 by_wrapper[wrapper] = []
             by_wrapper[wrapper].append(score)
@@ -77,9 +83,14 @@ async def get_success_rate_by_topic():
     by_topic = {}
     for e in entries:
         topic = e.get('topic', 'unknown')
-        score = e.get('quality_score', {}).get('total_score')
+        score_raw = e.get('quality_score', {}).get('total_score')
         
-        if score is not None:
+        if score_raw is not None:
+            try:
+                score = int(score_raw)
+            except (TypeError, ValueError):
+                continue # Skip data that can't be converted to int
+
             if topic not in by_topic:
                 by_topic[topic] = []
             by_topic[topic].append(score)
