@@ -503,12 +503,25 @@ async def complete_export(
                 except:
                     prompt_text = "[Error reading prompt]"
         
-        # Get response directly from JSON (now stored there!)
-        result = p.get('syntex_result')
-        if result and isinstance(result, dict):
-            response_text = result.get('response_text', '[Response not stored]')
-        else:
-            response_text = '[Response not stored]'
+        # Get response from _response.txt file (new format) or JSON (backfilled)
+        response_text = '[Response not available]'
+        
+        # Try 1: Load from _response.txt file (NEW FORMAT)
+        txt_filename = p.get('filename', '')
+        if txt_filename:
+            response_file = QUEUE_DIR / "processed" / txt_filename.replace('.txt', '_response.txt')
+            if response_file.exists():
+                try:
+                    with open(response_file) as f:
+                        response_text = f.read()
+                except:
+                    pass
+        
+        # Try 2: Fallback to JSON (BACKFILLED DATA)
+        if response_text == '[Response not available]':
+            result = p.get('syntex_result')
+            if result and isinstance(result, dict):
+                response_text = result.get('response_text', '[Response not stored]')
         
         # Get fields
         fields = safe_get_fields(p)
