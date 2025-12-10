@@ -113,7 +113,9 @@ class QueueConsumer:
         None wenn Queue leer
         """
         # Alle .txt Files in incoming/ (sortiert = älteste zuerst)
-        incoming_files = sorted(QUEUE_INCOMING.glob("*.txt"))
+        # Get all .txt files EXCEPT _response.txt files!
+        all_txt_files = sorted(QUEUE_INCOMING.glob("*.txt"))
+        incoming_files = [f for f in all_txt_files if not f.name.endswith('_response.txt')]
         
         if not incoming_files:
             return None  # Queue leer
@@ -225,13 +227,16 @@ class QueueConsumer:
                     'response_text': response  # ← RESPONSE SPEICHERN!
                 }
                 
-                # SYNTX Response in TXT File schreiben
-                if response:
-                    with open(job.file_path, 'w', encoding='utf-8') as f:
-                        f.write(response)
-
-                # Move zu processed/
+                # Move zu processed/ FIRST!
                 self.file_handler.move_to_processed(job)
+                
+                # THEN save response in processed/ (not processing/!)
+                if response:
+                    # Use QUEUE_PROCESSED - file is now in processed/!
+                    response_file = QUEUE_PROCESSED / (job.filename.replace('.txt', '_response.txt'))
+                    with open(response_file, 'w', encoding='utf-8') as f:
+                        f.write(response)
+                    print(f"  💾 Response saved to: {response_file}")
                 
                 return True
                 
