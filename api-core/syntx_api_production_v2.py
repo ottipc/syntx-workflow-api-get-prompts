@@ -29,6 +29,7 @@ from prompts.prompts_advanced_api import router as prompts_advanced_router
 from monitoring.live_monitor_api import router as monitoring_router
 from prompts.evolution_api import router as evolution_router
 from prompts.analytics_api import router as analytics_new_router
+from formats.formats_api import router as formats_router
 
 app = FastAPI(
     title="SYNTX PRODUCTION API",
@@ -57,6 +58,7 @@ app.include_router(monitoring_router)
 app.include_router(strom_router)
 app.include_router(feld_router)
 app.include_router(evolution_router)
+app.include_router(formats_router)
 app.include_router(analytics_new_router)
 
 # Original endpoints
