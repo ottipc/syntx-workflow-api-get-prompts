@@ -13,7 +13,9 @@ from .logger import CalibrationLogger
 from .parser import SyntexParser
 from ..api.client import APIClient
 from ..api.config import MODEL_PARAMS
+import os
 from ..analysis.scorer import SyntexScorer
+from ..analysis.scorer_v2 import score_all_fields, QualityScoreV2
 from ..analysis.tracker import ProgressTracker
 
 
@@ -91,7 +93,16 @@ class EnhancedSyntexCalibrator:
                 parsed_fields = self.parser.parse(response)
                 
                 # Score Quality
-                quality_score = self.scorer.score(parsed_fields, response)
+                # Score Quality - V2 mit ENV Toggle
+                use_v2 = os.getenv("SYNTX_SCORER_V2", "false").lower() == "true"
+                if use_v2:
+                    # Semantic Scorer V2
+                    fields_dict = {k: v for k, v in parsed_fields.to_dict().items() if v}
+                    format_type = parsed_fields.get_format()
+                    quality_score = score_all_fields(fields_dict, format_type)
+                else:
+                    # Legacy Boolean Scorer
+                    quality_score = self.scorer.score(parsed_fields, response)
                 
                 # Track Progress
                 self.tracker.log_progress(

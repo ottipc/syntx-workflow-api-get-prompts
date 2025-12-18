@@ -202,3 +202,5 @@ echo -e "${YELLOW}════════════════════�
 echo -e "${WHITE}                    SYNTX SCORER V2.0 TEST COMPLETE               ${NC}"
 echo -e "${YELLOW}══════════════════════════════════════════════════════════════════${NC}"
 echo ""
+
+# Nach dem Python-Block, vor dem Footer - Legacy Test hinzufügen

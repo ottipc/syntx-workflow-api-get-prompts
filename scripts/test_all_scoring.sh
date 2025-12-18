@@ -1,5 +1,5 @@
 #!/bin/bash
-# SYNTX SCORING SUITE - RUN ALL TESTS
+# SYNTX SCORING SUITE - RUN ALL TESTS 🚀
 
 echo ""
 echo "╔════════════════════════════════════════════════════════════════╗"
@@ -9,19 +9,24 @@ echo ""
 
 cd /opt/syntx-workflow-api-get-prompts
 
-echo "[1/3] EMBEDDINGS TEST"
+echo "[1/4] EMBEDDINGS TEST"
 echo "────────────────────────────────────────"
 ./scripts/test_embeddings.sh
 echo ""
 
-echo "[2/3] COHERENCE TEST"
+echo "[2/4] COHERENCE TEST"
 echo "────────────────────────────────────────"
 ./scripts/test_coherence.sh
 echo ""
 
-echo "[3/3] SCORER V2.0 TEST"
+echo "[3/4] SCORER V2.0 TEST"
 echo "────────────────────────────────────────"
 ./scripts/test_scorer_v2.sh
+echo ""
+
+echo "[4/4] INTEGRATION TEST"
+echo "────────────────────────────────────────"
+./scripts/test_integration.sh
 echo ""
 
 echo "╔════════════════════════════════════════════════════════════════╗"
